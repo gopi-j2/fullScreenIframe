@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const requestMethod = requestMethods.find(method => element[method]);
 
     if (hasFullScreenApi && requestMethod) {
-      element[requestMethod]().catch(err => console.log(err));
+      element[requestMethod]({navigationUI: 'hide'}).catch(err => console.log(err));
     }
   }
 
