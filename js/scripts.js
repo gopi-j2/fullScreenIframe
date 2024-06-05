@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   const webSdkIframe = parent.document.querySelector('#webSdkIframe');
 
   $('.portfolio').on('click', () => {
-    if(isMobile()) {
+    if(isMobileDevice()) {
       requestFullScreen(webSdkIframe);
     }
   })
@@ -69,7 +69,13 @@ const requestFullScreen = (element) => {
   }
 }
 
-const isMobile = () => {
-  let regex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-  return regex.test(navigator.userAgent) || navigator.maxTouchPoints > 0 || 'ontouchstart' in window || $(window).width() < 1280 || screen.width < 1280;
+const isMobileDevice = () => {
+  const userAgent = navigator.userAgent,
+        maxTouchPoints = navigator.maxTouchPoints,
+        hasTouchSupport = 'ontouchstart' in window,
+        windowWidth = window.innerWidth,
+        screenWidth = screen.width,
+        mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+
+  return (windowWidth < 1280 && screenWidth < 1280) || mobileRegex.test(userAgent) || maxTouchPoints > 0 || hasTouchSupport;
 }
